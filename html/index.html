@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>
+</title>
+
+<style>
+div {
+  float:left;
+  padding-right: 20px;
+}
+</style>
+</head>
+<body>
+<div>
+
+    <form action="action.cgi" method="POST">
+    make a cat/dog!<br />
+    <select name="type">
+    <option value="cat">cat</option>
+    <option value="dog">dog</option>
+    </select>
+
+    <input name="name" type="text" /><br />
+    <input type="submit" /><br />
+    <input name="action" type="hidden" value="pet" />
+    </form>
+    <hr />
+    <h2>Pets:</h2>
+    <table>
+    {% for x in entries %}
+    <tr><td><a href="pet.cgi?name={{ x.name }}">{{ x.name }}</a></td><td>{{ x.type }}</td>
+    {% if user_name %}<td>
+        {% if x.liked %}
+            <a href="action.cgi?action=unlike&name={{ x.name }}">unlike</a>
+        {% else %}
+            <a href="action.cgi?action=like&name={{ x.name }}">like</a>
+        {% endif %}</td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+    </table>
+    <hr />
+    <h2>Users:</h2>
+    {% for x in users %}
+    <a href="user.cgi?name={{ x.name }}">{{ x.name }}</a><br />
+    {% endfor %}
+
+</div>
+<div>
+
+    {% if user_name %}
+        Welcome {{ user_name }}! <a href="action.cgi?action=logout">logout</a>
+    {% else %}
+        <form action="action.cgi" method="POST">
+        pick a username
+        <input name="name" type="text" />
+        <input type="submit" value="register/log in!" />
+        <input name="action" type="hidden" value="login" />
+        </form>
+    {% endif %}
+</div>
+</body></html>

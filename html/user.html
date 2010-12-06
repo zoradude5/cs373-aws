@@ -1,0 +1,11 @@
+<html>
+<head>
+<title>
+</title>
+
+<body>
+<h2>{{ user.name }}</h2>
+{% for like in user.pets %}
+    <a href="pet.cgi?name={{ like }}">{{ like }}</a><br />
+{% endfor %}
+</body></html>
